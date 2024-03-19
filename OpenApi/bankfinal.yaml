@@ -46,6 +46,72 @@ paths:
           $ref: '#/components/responses/BadRequestResponse'
         '403':
           $ref: '#/components/responses/ForbiddenResponse'
+  /transactions/{transaction_id}/categorisation:
+    put:
+      tags:
+        - Portefeuille
+      summary: Catégoriser une transaction existante
+      parameters:
+        - $ref: '#/components/parameters/TransactionIdParameter'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategorisationRequest'
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategorisationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+
+  /transactions/categorisation:
+    post:
+      tags:
+        - Portefeuille
+      summary: Catégoriser plusieurs transactions à une même description
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MultipleCategorisationRequest'
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultipleCategorisationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+
+  /dashboard:
+    get:
+      tags:
+        - Portefeuille
+      summary: Obtenir les données pour le tableau de bord
+      parameters:
+        - $ref: '#/components/parameters/PeriodeParameter'
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardDataResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
 
 
 components:
@@ -100,6 +166,33 @@ components:
         - date_naissance
         - salaire_mensuel_net
         - numero_compte_unique  
+    CategorisationRequest:
+      type: object
+      properties:
+        categorie:
+          type: string
+          description: Catégorie de la transaction
+        commentaire:
+          type: string
+          description: Commentaire facultatif sur la catégorie
+      required:
+        - categorie
+
+    MultipleCategorisationRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description commune des transactions à catégoriser
+        categorie:
+          type: string
+          description: Catégorie à attribuer à toutes les transactions
+        commentaire:
+          type: string
+          description: Commentaire facultatif sur la catégorie
+      required:
+        - description
+        - categorie
     GetComptesResponse:
       type: object
       properties:
@@ -131,8 +224,70 @@ components:
               example: "Compte créé avec succès"
         body:
           $ref: '#/components/schemas/Compte'
+    CategorisationResponse:
+      type: object
+      properties:
+        status:
+          type: object
+          properties:
+            code:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: "Transaction catégorisée avec succès"
 
+    MultipleCategorisationResponse:
+      type: object
+      properties:
+        status:
+          type: object
+          properties:
+            code:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: "Transactions catégorisées avec succès"
 
+    DashboardDataResponse:
+      type: object
+      properties:
+        status:
+          type: object
+          properties:
+            code:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: "Données du tableau de bord récupérées avec succès"
+        body:
+          type: object
+          properties:
+            pie_chart:
+              type: object
+              example: "{ pie chart data }"
+            other_chart:
+              type: object
+              example: "{ other chart data }"
+  parameters:
+    TransactionIdParameter:
+      name: transaction_id
+      in: path
+      description: ID de la transaction à catégoriser
+      required: true
+      schema:
+        type: integer
+
+    PeriodeParameter:
+      name: periode
+      in: query
+      description: Période de visualisation (par défaut par mois, peut être en jour)
+      required: false
+      schema:
+        type: string
+        
   responses:
     ForbiddenResponse:
       description: Accès refusé
