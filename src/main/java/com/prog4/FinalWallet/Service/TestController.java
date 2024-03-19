@@ -1,14 +1,14 @@
-package service;
+package com.prog4.FinalWallet.Service;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class endpointTest {
+public class TestController {
 
-    @GetMapping("/Hello")
+    @GetMapping("/test")
     public String test(){
-        return "Hello World";
+        return "This is the test";
     }
 }
