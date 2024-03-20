@@ -1,6 +1,6 @@
 package com.prog4.FinalWallet.Controller;
 
-import com.prog4.FinalWallet.Model.AccountModel;
+import com.prog4.FinalWallet.Model.Account;
 import com.prog4.FinalWallet.Service.AccountService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,7 @@ public class TestController {
     }
 
     @GetMapping("/All")
-    public List<AccountModel> getAllId() {
+    public List<Account> getAllId() {
         return this.accountService.getAllId();
     }
 

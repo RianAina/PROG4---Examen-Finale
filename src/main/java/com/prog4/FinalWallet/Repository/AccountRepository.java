@@ -1,6 +1,6 @@
 package com.prog4.FinalWallet.Repository;
 
-import com.prog4.FinalWallet.Model.AccountModel;
+import com.prog4.FinalWallet.Model.Account;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -15,15 +15,15 @@ import java.sql.*;
 public class AccountRepository {
     private Connection connection;
 
-    public AccountModel createNewInstance(ResultSet resultSet) throws SQLException{
-        return new AccountModel(
+    public Account createNewInstance(ResultSet resultSet) throws SQLException{
+        return new Account(
                 resultSet.getLong("id"));
     }
 
 
-    public List<AccountModel> getAllId() throws SQLException {
+    public List<Account> getAllId() throws SQLException {
         String sql = "SELECT * FROM test;";
-        List<AccountModel> list = new ArrayList<>();
+        List<Account> list = new ArrayList<>();
         ResultSet resultSet = this.connection.createStatement().executeQuery(sql);
         while(resultSet.next()){
             list.add(this.createNewInstance(resultSet));

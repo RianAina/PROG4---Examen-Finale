@@ -1,7 +1,7 @@
 package com.prog4.FinalWallet.Service;
 
 
-import com.prog4.FinalWallet.Model.AccountModel;
+import com.prog4.FinalWallet.Model.Account;
 import com.prog4.FinalWallet.Repository.AccountRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.List;
 public class AccountService {
     private AccountRepository accountRepository;
 
-    public List<AccountModel> getAllId(){
+    public List<Account> getAllId(){
         try {
             return this.accountRepository.getAllId();
         } catch (SQLException e) {

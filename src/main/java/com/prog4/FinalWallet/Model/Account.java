@@ -9,14 +9,14 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class AccountModel {
+public class Account {
     long id;
     String firstName;
     String lastName;
     LocalDate birthDate;
     int mensualSalary;
 
-    public AccountModel(long id, String firstName, String lastName, LocalDate birthDate, int mensualSalary){
+    public Account(long id, String firstName, String lastName, LocalDate birthDate, int mensualSalary){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -24,7 +24,7 @@ public class AccountModel {
         this.mensualSalary = mensualSalary;
     }
 
-    public AccountModel(long id) {
+    public Account(long id) {
         this.id = id;
     }
 
