@@ -11,15 +11,15 @@ import java.time.LocalDate;
 @ToString
 public class AccountModel {
     long id;
-    String lastName;
     String firstName;
+    String lastName;
     LocalDate birthDate;
     int mensualSalary;
 
-    public AccountModel(long id, String lastName, String firstName, LocalDate birthDate, int mensualSalary){
+    public AccountModel(long id, String firstName, String lastName, LocalDate birthDate, int mensualSalary){
         this.id = id;
-        this.lastName = lastName;
         this.firstName = firstName;
+        this.lastName = lastName;
         this.birthDate = birthDate;
         this.mensualSalary = mensualSalary;
     }
