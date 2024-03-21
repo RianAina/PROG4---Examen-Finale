@@ -20,7 +20,7 @@ public class AccountController {
         return this.accountService.getAllAccount();
     }
 
-    /* Get an account by ID */
+        /* Get an account by ID */
     @GetMapping("/account/{id}")
     public Account getAccountById(@PathVariable Long id) {
         return this.accountService.getAccountById(id);

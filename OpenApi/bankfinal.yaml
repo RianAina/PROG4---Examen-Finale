@@ -1,24 +1,24 @@
 openapi: 3.0.0
 info:
-  title: Banque Numérique Madagascar
+  title: Numeric bank of Madagascar
   version: 1.0.0
-  description: Spécification de l'API pour la banque numérique à Madagascar
+  description: API specification for the numeric bank of Madagascar
 servers:
   - url: https://exemple.com/api/v1
 tags:
-  - name: Comptes
-    description: Gestion classique d'un compte bancaire
-  - name: Portefeuille
-    description: Gestion de portefeuille client
+  - name: Account
+    description: Classic managment of a bank account
+  - name: Wallet
+    description: User portfolio client
 paths:
-  /comptes:
+  /account:
     get:
       tags:
         - Comptes
-      summary: Récupérer la liste des comptes
+      summary: Get the list of all accounts
       responses:
         '200':
-          description: Succès
+          description: Successfull
           content:
             application/json:
               schema:
@@ -27,8 +27,8 @@ paths:
           $ref: '#/components/responses/ForbiddenResponse'
     post:
       tags:
-        - Comptes
-      summary: Créer un nouveau compte
+        - Account
+      summary: Create a new account
       requestBody:
         required: true
         content:
@@ -46,11 +46,29 @@ paths:
           $ref: '#/components/responses/BadRequestResponse'
         '403':
           $ref: '#/components/responses/ForbiddenResponse'
-  /transactions/{transaction_id}/categorisation:
+
+
+  /account/{id}:
+    get:
+      tags:
+        - Comptes
+      summary: Get an account by ID
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetComptesResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+    
+          
+  /transaction/{transaction_id}/categorization:
     put:
       tags:
-        - Portefeuille
-      summary: Catégoriser une transaction existante
+        - Wallet
+      summary: Categorize an existing transaction
       parameters:
         - $ref: '#/components/parameters/TransactionIdParameter'
       requestBody:
@@ -61,7 +79,7 @@ paths:
               $ref: '#/components/schemas/CategorisationRequest'
       responses:
         '200':
-          description: Succès
+          description: Successfull
           content:
             application/json:
               schema:
@@ -75,7 +93,7 @@ paths:
     post:
       tags:
         - Portefeuille
-      summary: Catégoriser plusieurs transactions à une même description
+      summary: Categorize some transaction with the same description
       requestBody:
         required: true
         content:
@@ -84,7 +102,7 @@ paths:
               $ref: '#/components/schemas/MultipleCategorisationRequest'
       responses:
         '200':
-          description: Succès
+          description: Successfull
           content:
             application/json:
               schema:
@@ -97,13 +115,13 @@ paths:
   /dashboard:
     get:
       tags:
-        - Portefeuille
-      summary: Obtenir les données pour le tableau de bord
+        - Wallet
+      summary: Get the data of the dashboard
       parameters:
         - $ref: '#/components/parameters/PeriodeParameter'
       responses:
         '200':
-          description: Succès
+          description: Successfull
           content:
             application/json:
               schema:
@@ -121,30 +139,31 @@ components:
       properties:
         accountId:
           type: string
-          description: Identifiant unique du compte
+          description: Id of an account
         nomClient:
           type: string
-          description: Nom du client
+          description: Client's firstname
         prenomClient:
           type: string
-          description: Prénom(s) du client
+          description: Client's lastname
         dateNaissanceClient:
           type: string
           format: date
-          description: Date de naissance du client
+          description: Birthdate's client
         salaireMensuelNet:
           type: number
-          description: Salaire mensuel net du client
+          description: Mensual salary's client
         balance:
           type: number
           description: Solde du compte
       required:
-        - accountId
-        - nomClient
-        - prenomClient
-        - dateNaissanceClient
-        - salaireMensuelNet
+        - id
+        - first_name
+        - last_name
+        - birth_date
+        - mensual_salary
         - balance
+        - can_take_credit
 
     CompteRequest:
       type: object
@@ -161,11 +180,11 @@ components:
         numero_compte_unique:
           type: string
       required:
-        - nom
-        - prenom
-        - date_naissance
-        - salaire_mensuel_net
-        - numero_compte_unique  
+        - first_name
+        - last_name
+        - birth_date
+        - mensual_salary
+        - id  
     CategorisationRequest:
       type: object
       properties:
