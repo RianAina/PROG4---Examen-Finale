@@ -33,9 +33,15 @@ public class AccountController {
     }
 
     /* Update the mensual salary of an account */
-    @PutMapping("/account/{id}/{mensualSalary}")
-    public Account updateSalaryAccount(@PathVariable int mensualSalary, @PathVariable Long id, @RequestBody Account account) {
-        return accountService.updateAccount(mensualSalary, id, account);
+    @PutMapping("/account/{id}")
+    public Account updateSalaryAccount(@PathVariable Long id, @RequestBody Account account) {
+        return accountService.updateAccount(id, account);
+    }
+
+    /* Delete an account */
+    @DeleteMapping("/account/{id}")
+    public String deleteAccount(@PathVariable int id){
+        return accountService.deleteAccount(id);
     }
 
 }

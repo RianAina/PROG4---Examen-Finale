@@ -48,12 +48,11 @@ public class AccountRepository {
 
 
     public void createAccount(Account account) throws SQLException {
-        String sql = "INSERT INTO account " + "VALUES (?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO account (firstName, lastName, birthDate, mensualSalary) VALUES (?, ?, ?, ?);";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setLong(1, account.getId());
-            statement.setString(2, account.getFirstName());
-            statement.setString(3, account.getLastName());
-            statement.setDate(4, account.getBirthDate());
+            statement.setString(1, account.getFirstName());
+            statement.setString(2, account.getLastName());
+            statement.setDate(3, account.getBirthDate());
             statement.setInt(4, account.getMensualSalary());
 
             statement.executeUpdate();
@@ -61,7 +60,7 @@ public class AccountRepository {
     }
 
 
-    public void updateAccount(int mensualSalary, Long id, Account account) throws SQLException {
+    public void updateAccount(Long id, Account account) throws SQLException {
         String sql = "UPDATE account SET mensualSalary = ? " +
                 " WHERE id = ?;";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -73,14 +72,14 @@ public class AccountRepository {
     }
 
 
-    public void deleteAccount(Long id, Account account) throws SQLException {
+    public void deleteAccount(int id) throws SQLException {
         String sql = "DELETE FROM account WHERE id = ? ;";
-        try (PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setLong(1, id);
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id);
         }
-    }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
 
 
-
-
-}
+    }}

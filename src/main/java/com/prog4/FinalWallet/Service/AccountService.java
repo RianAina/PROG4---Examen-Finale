@@ -16,7 +16,7 @@ public class AccountService {
 
     public List<Account> getAllAccount(){
         try {
-            return this.accountRepository.getAllAccount();
+            return this.accountRepository.getAllAccount() ;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
@@ -45,11 +45,10 @@ public class AccountService {
     }
 
 
-    public Account updateAccount(int mensualSalary, Long id, Account account){
+    public Account updateAccount(Long id, Account account){
         try {
             account.setId(id);
-            account.setMensualSalary(mensualSalary);
-            accountRepository.updateAccount(mensualSalary, id , account);
+            accountRepository.updateAccount(id , account);
             return account;
 
         } catch (SQLException e){
@@ -57,6 +56,17 @@ public class AccountService {
             return null;
         }
 
+    }
+
+
+    public String deleteAccount(int id){
+        try {
+            accountRepository.deleteAccount(id);
+            return "Account deleted successfully";
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
 }
