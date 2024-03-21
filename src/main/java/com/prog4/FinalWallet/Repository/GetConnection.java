@@ -13,7 +13,7 @@ public class GetConnection {
     @Bean
     public Connection test() throws SQLException{
         return DriverManager.getConnection (
-                "jdbc:postgresql://localhost:5432/wallet",
+                "jdbc:postgresql://localhost:5432/bank_database",
                 "postgres",
                 "password"
         );

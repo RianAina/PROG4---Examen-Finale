@@ -14,12 +14,49 @@ import java.util.List;
 public class AccountService {
     private AccountRepository accountRepository;
 
-    public List<Account> getAllId(){
+    public List<Account> getAllAccount(){
         try {
-            return this.accountRepository.getAllId();
+            return this.accountRepository.getAllAccount();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
+
+
+    public Account getAccountById(Long id){
+        try {
+            return this.accountRepository.getAccountById(id);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+
+    public Account createAccount(Account account){
+        try {
+            accountRepository.createAccount(account);
+            return account;
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+
+    public Account updateAccount(int mensualSalary, Long id, Account account){
+        try {
+            account.setId(id);
+            account.setMensualSalary(mensualSalary);
+            accountRepository.updateAccount(mensualSalary, id , account);
+            return account;
+
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+    }
+
 }
