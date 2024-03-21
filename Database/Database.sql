@@ -9,5 +9,6 @@ CREATE TABLE IF NOT EXISTS account (
     firstName VARCHAR(200) NOT NULL,
     lastName VARCHAR(200) NOT NULL,
     birthDate DATE CHECK (birthDate <= CURRENT_DATE - INTERVAL '21 years') NOT NULL,
-    mensualSalary DOUBLE PRECISION
+    mensualSalary DOUBLE PRECISION,
+    balance DOUBLE PRECISION
 );
