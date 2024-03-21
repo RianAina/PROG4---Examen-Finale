@@ -12,3 +12,9 @@ CREATE TABLE IF NOT EXISTS account (
     mensualSalary DOUBLE PRECISION,
     balance DOUBLE PRECISION
 );
+
+CREATE TABLE IF NOT EXISTS withdrawal (
+    id SERIAL PRIMARY KEY,
+    withdrawalDate TIMESTAMP,
+    idAccount INT REFERENCES account(id)
+)
