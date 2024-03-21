@@ -18,11 +18,17 @@ public class AccountRepository {
     public Account createNewInstance(ResultSet resultSet) throws SQLException{
         return new Account(
                 resultSet.getLong("id"),
-                resultSet.getString("firstName"),
-                resultSet.getString("lastName"),
-                resultSet.getDate("birthDate"),
-                resultSet.getInt("mensualSalary"));
+                resultSet.getString("first_name"),
+                resultSet.getString("last_name"),
+                resultSet.getDate("birth_date"),
+                resultSet.getInt("mensual_salary"),
+                resultSet.getInt("balance"),
+                resultSet.getBoolean("can_take_credit")
+        );
     }
+
+
+    /* EPIC1 P1 */
 
 
     public List<Account> getAllAccount() throws SQLException {
@@ -48,12 +54,14 @@ public class AccountRepository {
 
 
     public void createAccount(Account account) throws SQLException {
-        String sql = "INSERT INTO account (firstName, lastName, birthDate, mensualSalary) VALUES (?, ?, ?, ?);";
+        String sql = "INSERT INTO account (first_name, last_name, birth_date, mensual_salary, balance) " +
+                "VALUES (?, ?, ?, ?, ?);";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, account.getFirstName());
             statement.setString(2, account.getLastName());
             statement.setDate(3, account.getBirthDate());
             statement.setInt(4, account.getMensualSalary());
+            statement.setInt(5, account.getBalance());
 
             statement.executeUpdate();
         }
@@ -80,6 +88,19 @@ public class AccountRepository {
         catch (SQLException e){
             System.out.println(e.getMessage());
         }
+    }
 
 
-    }}
+    /* EPIC1 P2 */
+
+
+    public void setCreditStatus(Long id, Account account) throws SQLException{
+        String sql = "UPDATE account SET can_take_credit = ? WHERE id = ?;";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setBoolean(1, account.isCanTakeCredit());
+            statement.setLong(2, id);
+        }
+    }
+
+
+}

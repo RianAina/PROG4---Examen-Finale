@@ -69,4 +69,17 @@ public class AccountService {
         }
     }
 
+
+    public Account setCreditStatus(Long id, Account account){
+        try {
+            account.setId(id);
+            accountRepository.setCreditStatus(id , account);
+            return account;
+
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 }

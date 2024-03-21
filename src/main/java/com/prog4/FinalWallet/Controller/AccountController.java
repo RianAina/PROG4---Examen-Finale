@@ -44,4 +44,10 @@ public class AccountController {
         return accountService.deleteAccount(id);
     }
 
+    /* Set the credit status to on or off */
+    @PutMapping("/accountCredit/{id}")
+    public Account setCreditStatus(@PathVariable Long id, @RequestBody Account account) {
+        return accountService.setCreditStatus(id, account);
+    }
+
 }

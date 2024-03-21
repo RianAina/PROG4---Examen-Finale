@@ -16,13 +16,35 @@ public class Account {
     String lastName;
     Date birthDate;
     int mensualSalary;
+    int balance;
+    boolean canTakeCredit;
 
-    public Account(long id, String firstName, String lastName, Date birthDate, int mensualSalary){
+    public Account(long id, String firstName, String lastName, Date birthDate, int mensualSalary, int balance,
+                   boolean canTakeCredit){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.mensualSalary = mensualSalary;
+        this.balance = balance;
+        this.canTakeCredit = canTakeCredit;
+
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
+    public boolean isCanTakeCredit() {
+        return canTakeCredit;
+    }
+
+    public void setCanTakeCredit(boolean canTakeCredit) {
+        this.canTakeCredit = canTakeCredit;
     }
 
     public Account(long id) {
@@ -33,7 +55,7 @@ public class Account {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
