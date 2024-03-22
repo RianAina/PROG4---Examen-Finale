@@ -45,17 +45,29 @@ public class AccountService {
     }
 
 
-    public Account updateAccount(Long id, Account account){
+    public Account updateAccountSalary(Long id, Account account){
         try {
             account.setId(id);
-            accountRepository.updateAccount(id , account);
+            accountRepository.updateAccountSalary(id , account);
             return account;
 
         } catch (SQLException e){
             System.out.println(e.getMessage());
             return null;
         }
+    }
 
+
+    public Account updateBalance(Long id, Account account){
+        try {
+            account.setId(id);
+            accountRepository.updateBalance(id , account);
+            return account;
+
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
 

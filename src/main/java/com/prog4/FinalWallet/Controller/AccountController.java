@@ -26,8 +26,6 @@ public class AccountController {
         return this.accountService.getAccountById(id);
     }
 
-
-
     /* Create a new account */
     @PostMapping("/account")
     public Account createAccount (@RequestBody Account account) {
@@ -35,10 +33,21 @@ public class AccountController {
         return accountService.createAccount(account);
     }
 
+    /* Set the credit status to on or off */
+    @PutMapping("/accountCredit/{id}")
+    public Account setCreditStatus(@PathVariable Long id, @RequestBody Account account) {
+        return accountService.setCreditStatus(id, account);
+    }
+
     /* Update the mensual salary of an account */
-    @PutMapping("/account/{id}")
-    public Account updateSalaryAccount(@PathVariable Long id, @RequestBody Account account) {
-        return accountService.updateAccount(id, account);
+    @PutMapping("/accountSalary/{id}")
+    public Account updateAccountSalary(@PathVariable Long id, @RequestBody Account account) {
+        return accountService.updateAccountSalary(id, account);
+    }
+
+    @PutMapping("/accountBalance/{id}")
+    public Account updateBalance(@PathVariable Long id, @RequestBody Account account) {
+        return accountService.updateBalance(id, account);
     }
 
     /* Delete an account */
@@ -47,10 +56,5 @@ public class AccountController {
         return accountService.deleteAccount(id);
     }
 
-    /* Set the credit status to on or off */
-    @PutMapping("/accountCredit/{id}")
-    public Account setCreditStatus(@PathVariable Long id, @RequestBody Account account) {
-        return accountService.setCreditStatus(id, account);
-    }
 
 }

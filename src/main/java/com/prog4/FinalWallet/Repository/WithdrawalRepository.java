@@ -26,7 +26,7 @@ public class WithdrawalRepository {
     }
 
 
-    public void doWithdraw(long id, int withdrawalAmount, Withdrawal withdrawal) throws SQLException{
+    public void doWithdraw(long id, int withdrawalAmount) throws SQLException{
 
         String sqlWithdrawal = "INSERT INTO withdrawal (id_account, withdrawal_amount) VALUES (?, ?);";
         String sqlAccount = "UPDATE account SET balance = balance - ? WHERE id = ?;";

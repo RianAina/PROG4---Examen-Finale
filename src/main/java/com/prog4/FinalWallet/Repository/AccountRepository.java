@@ -74,7 +74,7 @@ public class AccountRepository {
 
         ResultSet resultSet = statement.executeQuery();
         if(resultSet.next()){
-            mensualSalary = resultSet.getInt("balance");
+            mensualSalary = resultSet.getInt("mensual_salary");
         }
         return mensualSalary;
     }
@@ -109,8 +109,28 @@ public class AccountRepository {
     }
 
 
-    public void updateAccount(Long id, Account account) throws SQLException {
-        String sql = "UPDATE account SET mensualSalary = ? " +
+    public void setCreditStatus(Long id, Account account) throws SQLException{
+        String sql = "UPDATE account SET can_take_credit = ? WHERE id = ?;";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setBoolean(1, account.isCanTakeCredit());
+            statement.setLong(2, id);
+            statement.executeUpdate();
+        }
+    }
+
+
+    public void updateBalance(Long id, Account account) throws SQLException{
+        String sql = "UPDATE account SET balance = ? WHERE id = ?;";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, account.getBalance());
+            statement.setLong(2, id);
+            statement.executeUpdate();
+        }
+    }
+
+
+    public void updateAccountSalary(Long id, Account account) throws SQLException {
+        String sql = "UPDATE account SET mensual_salary = ? " +
                 " WHERE id = ?;";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, account.getMensualSalary());
@@ -125,6 +145,7 @@ public class AccountRepository {
         String sql = "DELETE FROM account WHERE id = ? ;";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
+            statement.executeUpdate();
         }
         catch (SQLException e){
             System.out.println(e.getMessage());
@@ -134,13 +155,7 @@ public class AccountRepository {
 
 
 
-    public void setCreditStatus(Long id, Account account) throws SQLException{
-        String sql = "UPDATE account SET can_take_credit = ? WHERE id = ?;";
-        try (PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setBoolean(1, account.isCanTakeCredit());
-            statement.setLong(2, id);
-        }
-    }
+
 
 
 
