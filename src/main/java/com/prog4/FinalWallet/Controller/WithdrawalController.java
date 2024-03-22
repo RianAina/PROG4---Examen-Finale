@@ -14,7 +14,7 @@ public class WithdrawalController {
     private WithdrawalService withdrawalService;
 
     /* Do a withdraw */
-    @PutMapping("/withdraw/{id}/{amount}")
+    @PutMapping("/withdraw/{id}/{withdrawalAmount}")
     public String doWithdraw (@PathVariable long id, @PathVariable int withdrawalAmount, @RequestBody Withdrawal withdrawal) throws SQLException {
         return withdrawalService.doWithdrawService(id, withdrawalAmount, withdrawal);
     }

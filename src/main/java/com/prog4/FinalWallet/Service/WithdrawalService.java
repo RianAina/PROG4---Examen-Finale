@@ -16,19 +16,36 @@ public class WithdrawalService {
     private WithdrawalRepository withdrawalRepository;
     private AccountRepository accountRepository;
 
+
     @Transactional
     public String doWithdrawService(long id, int withdrawalAmount, Withdrawal withdrawal) throws SQLException {
 
         int balance = accountRepository.getAccountBalance(id);
+        boolean creditStatus = accountRepository.getCreditStatus(id);
+        int mensualSalary = accountRepository.getMensualSalary(id);
 
         try {
-            if ((balance + balance/3) >= withdrawalAmount){
-                withdrawalRepository.doWithdraw(id, withdrawalAmount, withdrawal);
-                return "Withdraw of " + withdrawalAmount + "done !";
-            } else if ((balance + balance/3) < withdrawalAmount) {
-                return "Insufficient balance !";
+            if (creditStatus = true){
+                balance = balance + mensualSalary/3;
+                if (balance >= withdrawalAmount){ /* (balance + balance/3) >= withdrawalAmount */
+                    withdrawalRepository.doWithdraw(id, withdrawalAmount, withdrawal);
+                    return "Withdraw of " + withdrawalAmount + " successfully completed !";
+                } else if (balance < withdrawalAmount) {
+                    return "Insufficient balance !";
+                } else {
+                    return "Error !";
+                }
             } else {
-                return "Error !";
+                if (balance >= withdrawalAmount){ /* (balance + balance/3) >= withdrawalAmount */
+                    withdrawalRepository.doWithdraw(id, withdrawalAmount, withdrawal);
+                    return "Withdraw of " + withdrawalAmount + " successfully completed !";
+                } else if (balance < withdrawalAmount && (balance + balance/3) < withdrawalAmount) {
+                    return "Insufficient balance and credit is not available";
+                } else if (balance < withdrawalAmount){
+                    return "Insufficient balance !";
+                } else {
+                    return "Error !";
+                }
             }
 
 

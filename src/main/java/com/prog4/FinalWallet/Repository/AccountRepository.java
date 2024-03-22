@@ -66,6 +66,34 @@ public class AccountRepository {
     }
 
 
+    public int getMensualSalary(long id) throws SQLException{
+        int mensualSalary = 0;
+        String sql = "SELECT mensual_salary FROM account WHERE id = ? ;";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setLong(1, id);
+
+        ResultSet resultSet = statement.executeQuery();
+        if(resultSet.next()){
+            mensualSalary = resultSet.getInt("balance");
+        }
+        return mensualSalary;
+    }
+
+
+    public boolean getCreditStatus(long id) throws SQLException{
+        boolean creditStatus = false;
+        String sql = "SELECT can_take_credit FROM account WHERE id = ? ;";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setLong(1, id);
+
+        ResultSet resultSet = statement.executeQuery();
+        if(resultSet.next()){
+            creditStatus = resultSet.getBoolean("can_take_credit");
+        }
+        return creditStatus;
+    }
+
+
     public void createAccount(Account account) throws SQLException {
         String sql = "INSERT INTO account (first_name, last_name, birth_date, mensual_salary, balance) " +
                 "VALUES (?, ?, ?, ?, ?);";
@@ -115,15 +143,6 @@ public class AccountRepository {
     }
 
 
-    public void balanceAfterWithdraw(int balance, Account account) throws SQLException{
-        String sql = "UPDATE account SET balance = ? WHERE id = ?;";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, balance);
-            statement.setLong(2, account.getId());
-
-            statement.executeUpdate();
-        }
-    }
 
 
 }

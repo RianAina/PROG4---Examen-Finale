@@ -41,6 +41,8 @@ public class WithdrawalRepository {
                 accountStatement.setInt(1, withdrawalAmount);
                 accountStatement.setLong(2, id);
 
+                accountStatement.executeUpdate();
+
         } catch (SQLException e){
             throw new RuntimeException("SQL request error", e);
         }
