@@ -5,13 +5,23 @@ import java.sql.Timestamp;
 public class Withdrawal {
     long id;
     long idAccount;
+    int withdrawalAmount;
     Timestamp withdrawalDate;
 
 
-    public Withdrawal(long id, long idAccount, Timestamp withdrawalDate) {
+    public Withdrawal(long id, long idAccount, int withdrawalAmount, Timestamp withdrawalDate) {
         this.id = id;
         this.idAccount = idAccount;
+        this.withdrawalAmount = withdrawalAmount;
         this.withdrawalDate = withdrawalDate;
+    }
+
+    public int getWithdrawalAmount() {
+        return withdrawalAmount;
+    }
+
+    public void setWithdrawalAmount(int withdrawalAmount) {
+        this.withdrawalAmount = withdrawalAmount;
     }
 
     public long getId() {

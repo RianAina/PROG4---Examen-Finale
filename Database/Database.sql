@@ -16,7 +16,8 @@ CREATE TABLE IF NOT EXISTS account (
 
 CREATE TABLE IF NOT EXISTS withdrawal (
     id SERIAL PRIMARY KEY,
-    id_account INT,
-    withdrawal_date TIMESTAMP,
+    id_account INT NOT NULL,
+    withdrawal_amount DOUBLE PRECISION NOT NULL,
+    withdrawal_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_account) REFERENCES account(id)
 );

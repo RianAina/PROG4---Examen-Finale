@@ -2,6 +2,7 @@ package com.prog4.FinalWallet.Repository;
 
 import com.prog4.FinalWallet.Model.Account;
 import lombok.AllArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.sql.*;
 @Repository
 public class AccountRepository {
     private Connection connection;
+    private final JdbcTemplate jdbcTemplate;
 
     public Account createNewInstance(ResultSet resultSet) throws SQLException{
         return new Account(
@@ -26,9 +28,6 @@ public class AccountRepository {
                 resultSet.getBoolean("can_take_credit")
         );
     }
-
-
-    /* EPIC1 P1 */
 
 
     public List<Account> getAllAccount() throws SQLException {
@@ -50,6 +49,20 @@ public class AccountRepository {
             return this.createNewInstance(resultSet);
         }
         return null;
+    }
+
+
+    public int getAccountBalance(long id) throws SQLException{
+        int balance = 0;
+        String sql = "SELECT balance FROM account WHERE id = ? ;";
+        PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setLong(1, id);
+
+        ResultSet resultSet = statement.executeQuery();
+        if(resultSet.next()){
+            balance = resultSet.getInt("balance");
+        }
+        return balance;
     }
 
 
@@ -91,7 +104,6 @@ public class AccountRepository {
     }
 
 
-    /* EPIC1 P2 */
 
 
     public void setCreditStatus(Long id, Account account) throws SQLException{
@@ -99,6 +111,17 @@ public class AccountRepository {
         try (PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setBoolean(1, account.isCanTakeCredit());
             statement.setLong(2, id);
+        }
+    }
+
+
+    public void balanceAfterWithdraw(int balance, Account account) throws SQLException{
+        String sql = "UPDATE account SET balance = ? WHERE id = ?;";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, balance);
+            statement.setLong(2, account.getId());
+
+            statement.executeUpdate();
         }
     }
 

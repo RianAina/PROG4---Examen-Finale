@@ -26,9 +26,12 @@ public class AccountController {
         return this.accountService.getAccountById(id);
     }
 
+
+
     /* Create a new account */
     @PostMapping("/account")
     public Account createAccount (@RequestBody Account account) {
+
         return accountService.createAccount(account);
     }
 
