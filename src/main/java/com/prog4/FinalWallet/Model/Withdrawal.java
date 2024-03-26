@@ -16,6 +16,7 @@ public class Withdrawal {
         this.withdrawalDate = withdrawalDate;
     }
 
+
     public int getWithdrawalAmount() {
         return withdrawalAmount;
     }

@@ -132,6 +132,8 @@ public class AccountRepository {
     }
 
 
+
+
     public void updateBalance(Long id, Account account) throws SQLException{
         String sql = "UPDATE account SET balance = ? WHERE id = ?;";
         try (PreparedStatement statement = connection.prepareStatement(sql)){

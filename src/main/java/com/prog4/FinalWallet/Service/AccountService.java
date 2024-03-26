@@ -42,7 +42,6 @@ public class AccountService {
         }
     }
 
-
     public Account getAccountById(Long id){
         try {
             return this.accountRepository.getAccountById(id);
@@ -51,6 +50,7 @@ public class AccountService {
             return null;
         }
     }
+
 
 
     public int getAccountBalance(long id){

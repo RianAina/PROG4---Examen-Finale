@@ -19,9 +19,19 @@ public class WithdrawalService {
     private AccountRepository accountRepository;
 
 
-    public List<Withdrawal> getWithdrawalHistory(){
+    public List<Withdrawal> getAllWithdrawalHistory(){
         try {
-            return this.withdrawalRepository.getWithdrawalHistory() ;
+            return this.withdrawalRepository.getAllWithdrawalHistory() ;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+
+    public List<Withdrawal> getWithdrawalHistoryById(Long id){
+        try {
+            return this.withdrawalRepository.getWithdrawalHistoryById(id);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;

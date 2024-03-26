@@ -1,6 +1,7 @@
 package com.prog4.FinalWallet.Controller;
 
 
+import com.prog4.FinalWallet.Model.Account;
 import com.prog4.FinalWallet.Model.Withdrawal;
 import com.prog4.FinalWallet.Service.WithdrawalService;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,13 @@ public class WithdrawalController {
 
     @GetMapping("/withdrawal")
     public List<Withdrawal> getWithdrawalHistory () throws SQLException {
-        return withdrawalService.getWithdrawalHistory();
+        return withdrawalService.getAllWithdrawalHistory();
+    }
+
+
+    @GetMapping("/withdrawal/{id}")
+    public List<Withdrawal> getWithdrawalHistoryById(@PathVariable Long id) {
+        return this.withdrawalService.getWithdrawalHistoryById(id);
     }
 
 
@@ -27,7 +34,7 @@ public class WithdrawalController {
     /* -- Put request -- */
 
     /* Do a withdraw */
-    @PutMapping("/withdraw/{id}/{withdrawalAmount}")
+    @PutMapping("/withdrawal/{id}/{withdrawalAmount}")
     public String doWithdraw (@PathVariable long id, @PathVariable int withdrawalAmount) throws SQLException {
         return withdrawalService.doWithdrawService(id, withdrawalAmount);
     }
