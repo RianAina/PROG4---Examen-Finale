@@ -1,7 +1,6 @@
 package com.prog4.FinalWallet.Controller;
 
 import com.prog4.FinalWallet.Model.Account;
-import com.prog4.FinalWallet.Repository.AccountRepository;
 import com.prog4.FinalWallet.Service.AccountService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +11,10 @@ import java.util.List;
 @AllArgsConstructor
 public class AccountController {
     private AccountService accountService;
+
+
+
+
 
 
     /* -- Get request -- */
@@ -26,6 +29,12 @@ public class AccountController {
     @GetMapping("/account/{id}")
     public Account getAccountById(@PathVariable Long id) {
         return this.accountService.getAccountById(id);
+    }
+
+
+    @GetMapping("/account/balance/{id}")
+    public int getAccountBalance(@PathVariable Long id){
+        return this.accountService.getAccountBalance(id);
     }
 
 
@@ -49,18 +58,18 @@ public class AccountController {
     /* -- Put request -- */
 
     /* Set the credit status to on or off */
-    @PutMapping("/accountCredit/{id}")
+    @PutMapping("/account/credit/{id}")
     public Account setCreditStatus(@PathVariable Long id, @RequestBody Account account) {
         return accountService.setCreditStatus(id, account);
     }
 
     /* Update the mensual salary of an account */
-    @PutMapping("/accountSalary/{id}")
+    @PutMapping("/account/salary/{id}")
     public Account updateAccountSalary(@PathVariable Long id, @RequestBody Account account) {
         return accountService.updateAccountSalary(id, account);
     }
 
-    @PutMapping("/accountBalance/{id}")
+    @PutMapping("/account/balance/{id}")
     public Account updateBalance(@PathVariable Long id, @RequestBody Account account) {
         return accountService.updateBalance(id, account);
     }

@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -16,7 +17,10 @@ public class WithdrawalController {
 
     /* -- Get request -- */
 
-
+    @GetMapping("/withdrawal")
+    public List<Withdrawal> getWithdrawalHistory () throws SQLException {
+        return withdrawalService.getWithdrawalHistory();
+    }
 
 
 

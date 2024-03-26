@@ -1,6 +1,7 @@
 package com.prog4.FinalWallet.Service;
 
 
+import com.prog4.FinalWallet.Model.Account;
 import com.prog4.FinalWallet.Model.Withdrawal;
 import com.prog4.FinalWallet.Repository.AccountRepository;
 import com.prog4.FinalWallet.Repository.WithdrawalRepository;
@@ -9,12 +10,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @AllArgsConstructor
 @Service
 public class WithdrawalService {
     private WithdrawalRepository withdrawalRepository;
     private AccountRepository accountRepository;
+
+
+    public List<Withdrawal> getWithdrawalHistory(){
+        try {
+            return this.withdrawalRepository.getWithdrawalHistory() ;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 
 
     @Transactional
@@ -55,4 +67,6 @@ public class WithdrawalService {
 
         return null;
     }
+
+
 }

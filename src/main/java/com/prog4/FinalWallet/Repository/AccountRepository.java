@@ -17,6 +17,9 @@ public class AccountRepository {
     private Connection connection;
     private final JdbcTemplate jdbcTemplate;
 
+
+    /* -- CREATE -- */
+
     public Account createNewInstance(ResultSet resultSet) throws SQLException{
         return new Account(
                 resultSet.getLong("id"),
@@ -29,6 +32,11 @@ public class AccountRepository {
         );
     }
 
+
+
+
+
+    /* -- READ -- */
 
     public List<Account> getAllAccount() throws SQLException {
         String sql = "SELECT * FROM account;";
@@ -94,6 +102,11 @@ public class AccountRepository {
     }
 
 
+
+
+
+    /* -- UPDATE -- */
+
     public void createAccount(Account account) throws SQLException {
         String sql = "INSERT INTO account (first_name, last_name, birth_date, mensual_salary, balance) " +
                 "VALUES (?, ?, ?, ?, ?);";
@@ -140,6 +153,11 @@ public class AccountRepository {
         }
     }
 
+
+
+
+
+    /* -- DELETE -- */
 
     public void deleteAccount(int id) throws SQLException {
         String sql = "DELETE FROM account WHERE id = ? ;";

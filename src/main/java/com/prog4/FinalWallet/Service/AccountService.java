@@ -14,6 +14,25 @@ import java.util.List;
 public class AccountService {
     private AccountRepository accountRepository;
 
+
+    /* -- CREATE -- */
+
+    public Account createAccount(Account account){
+        try {
+            accountRepository.createAccount(account);
+            return account;
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+
+
+
+
+    /* -- READ -- */
+
     public List<Account> getAllAccount(){
         try {
             return this.accountRepository.getAllAccount() ;
@@ -34,10 +53,28 @@ public class AccountService {
     }
 
 
-    public Account createAccount(Account account){
+    public int getAccountBalance(long id){
         try {
-            accountRepository.createAccount(account);
+            return this.accountRepository.getAccountBalance(id);
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
+
+
+
+
+
+    /* -- UPDATE -- */
+
+    public Account updateAccountSalary(Long id, Account account){
+        try {
+            account.setId(id);
+            accountRepository.updateAccountSalary(id , account);
             return account;
+
         } catch (SQLException e){
             System.out.println(e.getMessage());
             return null;
@@ -45,10 +82,10 @@ public class AccountService {
     }
 
 
-    public Account updateAccountSalary(Long id, Account account){
+    public Account setCreditStatus(Long id, Account account){
         try {
             account.setId(id);
-            accountRepository.updateAccountSalary(id , account);
+            accountRepository.setCreditStatus(id , account);
             return account;
 
         } catch (SQLException e){
@@ -71,23 +108,15 @@ public class AccountService {
     }
 
 
+
+
+
+    /* -- DELETE -- */
+
     public String deleteAccount(int id){
         try {
             accountRepository.deleteAccount(id);
             return "Account deleted successfully";
-        } catch (SQLException e){
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-
-
-    public Account setCreditStatus(Long id, Account account){
-        try {
-            account.setId(id);
-            accountRepository.setCreditStatus(id , account);
-            return account;
-
         } catch (SQLException e){
             System.out.println(e.getMessage());
             return null;

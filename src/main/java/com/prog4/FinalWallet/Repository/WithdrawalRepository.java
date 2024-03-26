@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -20,13 +21,21 @@ public class WithdrawalRepository {
     public Withdrawal createNewInstance (ResultSet resultSet) throws SQLException{
         return new Withdrawal(
                 resultSet.getLong("id"),
-                resultSet.getLong("idAccount"),
-                resultSet.getInt("withdrawalAmount"),
-                resultSet.getTimestamp("withdrawalDate")
+                resultSet.getLong("id_account"),
+                resultSet.getInt("withdrawal_amount"),
+                resultSet.getTimestamp("withdrawal_drate")
         );
     }
 
-    public List<Withdrawal> getWithdrawalk
+    public List<Withdrawal> getWithdrawalHistory() throws SQLException {
+        String sql = "SELECT * FROM withdrawal;";
+        List<Withdrawal> list = new ArrayList<>();
+        ResultSet resultSet = connection.createStatement().executeQuery(sql);
+        while(resultSet.next()){
+            list.add(this.createNewInstance(resultSet));
+        }
+        return list;
+    }
 
 
     public void doWithdraw(long id, int withdrawalAmount) throws SQLException{
