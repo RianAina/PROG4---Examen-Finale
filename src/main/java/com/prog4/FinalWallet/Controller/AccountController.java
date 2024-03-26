@@ -14,17 +14,25 @@ public class AccountController {
     private AccountService accountService;
 
 
+    /* -- Get request -- */
+
     /* Get the list of all accounts */
     @GetMapping("/account")
     public List<Account> getAllAccount() {
         return this.accountService.getAllAccount();
     }
 
-        /* Get an account by ID */
+    /* Get an account by ID */
     @GetMapping("/account/{id}")
     public Account getAccountById(@PathVariable Long id) {
         return this.accountService.getAccountById(id);
     }
+
+
+
+
+
+    /* -- Post request -- */
 
     /* Create a new account */
     @PostMapping("/account")
@@ -32,6 +40,13 @@ public class AccountController {
 
         return accountService.createAccount(account);
     }
+
+
+
+
+
+
+    /* -- Put request -- */
 
     /* Set the credit status to on or off */
     @PutMapping("/accountCredit/{id}")
@@ -49,6 +64,12 @@ public class AccountController {
     public Account updateBalance(@PathVariable Long id, @RequestBody Account account) {
         return accountService.updateBalance(id, account);
     }
+
+
+
+
+
+    /* -- Delete request -- */
 
     /* Delete an account */
     @DeleteMapping("/account/{id}")

@@ -13,6 +13,15 @@ import java.sql.SQLException;
 public class WithdrawalController {
     private WithdrawalService withdrawalService;
 
+
+    /* -- Get request -- */
+
+
+
+
+
+    /* -- Put request -- */
+
     /* Do a withdraw */
     @PutMapping("/withdraw/{id}/{withdrawalAmount}")
     public String doWithdraw (@PathVariable long id, @PathVariable int withdrawalAmount) throws SQLException {

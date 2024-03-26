@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @AllArgsConstructor
 @Repository
@@ -24,6 +25,8 @@ public class WithdrawalRepository {
                 resultSet.getTimestamp("withdrawalDate")
         );
     }
+
+    public List<Withdrawal> getWithdrawalk
 
 
     public void doWithdraw(long id, int withdrawalAmount) throws SQLException{
