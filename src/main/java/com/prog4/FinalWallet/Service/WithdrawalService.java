@@ -40,19 +40,28 @@ public class WithdrawalService {
 
 
     @Transactional
-    public String doWithdrawService(long id, int withdrawalAmount) throws SQLException {
+    public String doWithdrawService(long id, double withdrawalAmount) throws SQLException {
 
-        int balance = accountRepository.getAccountBalance(id);
+        double balance = accountRepository.getAccountBalance(id);
         boolean creditStatus = accountRepository.getCreditStatus(id);
-        int mensualSalary = accountRepository.getMensualSalary(id);
+        double mensualSalary = accountRepository.getMensualSalary(id);
+        double credit = 0;
 
         try {
             if (creditStatus){
-                balance = balance + mensualSalary/3;
-                if (balance >= withdrawalAmount && 0 != withdrawalAmount){
+                if ((balance = balance + mensualSalary/3) >= withdrawalAmount && 0 != withdrawalAmount){
                     withdrawalRepository.doWithdraw(id, withdrawalAmount);
+                    balance = balance - withdrawalAmount;
+
+                    if (balance < 0){
+                        double NewCredit = Math.abs(balance);
+                        credit = accountRepository.getAccountCredit(id);
+                        credit = credit + NewCredit;
+                        accountRepository.updateAccountCredit(credit, id);
+                    }
+
                     return "Withdraw of " + withdrawalAmount + " successfully completed !";
-                } else if (balance < withdrawalAmount) {
+                } else if (balance < withdrawalAmount && 0 != withdrawalAmount) {
                     return "Insufficient balance !" ;
                 } else {
                     return "Invalid amount !";
@@ -61,9 +70,13 @@ public class WithdrawalService {
                 if (balance >= withdrawalAmount && 0 != withdrawalAmount){
                     withdrawalRepository.doWithdraw(id, withdrawalAmount);
                     return "Withdraw of " + withdrawalAmount + " successfully completed ! ";
-                } else if ((balance < withdrawalAmount) && ((balance + balance/3) < withdrawalAmount)) {
+                } else if (
+                        (balance < withdrawalAmount)
+                        && ((balance + balance/3) < withdrawalAmount)
+                        && 0 != withdrawalAmount
+                ) {
                     return "Insufficient balance and credit is not available";
-                } else if (balance < withdrawalAmount){
+                } else if (balance < withdrawalAmount && 0 != withdrawalAmount){
                     return "Insufficient balance !";
                 } else {
                     return "Invalid amount !";

@@ -26,9 +26,10 @@ public class AccountRepository {
                 resultSet.getString("first_name"),
                 resultSet.getString("last_name"),
                 resultSet.getDate("birth_date"),
-                resultSet.getInt("mensual_salary"),
-                resultSet.getInt("balance"),
-                resultSet.getBoolean("can_take_credit")
+                resultSet.getDouble("mensual_salary"),
+                resultSet.getDouble("balance"),
+                resultSet.getBoolean("can_take_credit"),
+                resultSet.getDouble("credit")
         );
     }
 
@@ -60,17 +61,31 @@ public class AccountRepository {
     }
 
 
-    public int getAccountBalance(long id) throws SQLException{
-        int balance = 0;
+    public double getAccountBalance(long id) throws SQLException{
+        double balance = 0;
         String sql = "SELECT balance FROM account WHERE id = ? ;";
         PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
 
         ResultSet resultSet = statement.executeQuery();
         if(resultSet.next()){
-            balance = resultSet.getInt("balance");
+            balance = resultSet.getDouble("balance");
         }
         return balance;
+    }
+
+
+    public double getAccountCredit(long id) throws SQLException{
+        double credit = 0;
+        String sql = "SELECT credit FROM account WHERE id = ? ;";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setLong(1, id);
+
+        ResultSet resultSet = statement.executeQuery();
+        if(resultSet.next()){
+            credit = resultSet.getDouble("credit");
+        }
+        return credit;
     }
 
 
@@ -114,8 +129,8 @@ public class AccountRepository {
             statement.setString(1, account.getFirstName());
             statement.setString(2, account.getLastName());
             statement.setDate(3, account.getBirthDate());
-            statement.setInt(4, account.getMensualSalary());
-            statement.setInt(5, account.getBalance());
+            statement.setDouble(4, account.getMensualSalary());
+            statement.setDouble(5, account.getBalance());
 
             statement.executeUpdate();
         }
@@ -137,7 +152,7 @@ public class AccountRepository {
     public void updateBalance(Long id, Account account) throws SQLException{
         String sql = "UPDATE account SET balance = ? WHERE id = ?;";
         try (PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1, account.getBalance());
+            statement.setDouble(1, account.getBalance());
             statement.setLong(2, id);
             statement.executeUpdate();
         }
@@ -148,7 +163,18 @@ public class AccountRepository {
         String sql = "UPDATE account SET mensual_salary = ? " +
                 " WHERE id = ?;";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, account.getMensualSalary());
+            statement.setDouble(1, account.getMensualSalary());
+            statement.setLong(2, id);
+
+            statement.executeUpdate();
+        }
+    }
+
+
+    public void updateAccountCredit(double credit, Long id) throws SQLException {
+        String sql = "UPDATE account SET credit = ? WHERE id = ?;";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setDouble(1, credit);
             statement.setLong(2, id);
 
             statement.executeUpdate();

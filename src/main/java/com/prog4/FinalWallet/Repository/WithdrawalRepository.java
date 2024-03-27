@@ -33,19 +33,19 @@ public class WithdrawalRepository {
 
     /* -- CREATE -- */
 
-    public void doWithdraw(long id, int withdrawalAmount) throws SQLException{
+    public void doWithdraw(long id, double withdrawalAmount) throws SQLException{
 
         String sqlWithdrawal = "INSERT INTO withdrawal (id_account, withdrawal_amount) VALUES (?, ?);";
         String sqlAccount = "UPDATE account SET balance = balance - ? WHERE id = ?;";
         try {
             PreparedStatement withdrawStatement = connection.prepareStatement(sqlWithdrawal);
             withdrawStatement.setLong(1, id);
-            withdrawStatement.setInt(2, withdrawalAmount);
+            withdrawStatement.setDouble(2, withdrawalAmount);
 
             withdrawStatement.executeUpdate();
 
             PreparedStatement accountStatement = connection.prepareStatement(sqlAccount);
-            accountStatement.setInt(1, withdrawalAmount);
+            accountStatement.setDouble(1, withdrawalAmount);
             accountStatement.setLong(2, id);
 
             accountStatement.executeUpdate();

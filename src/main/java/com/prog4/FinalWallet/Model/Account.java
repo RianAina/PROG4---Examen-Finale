@@ -15,12 +15,13 @@ public class Account {
     String firstName;
     String lastName;
     Date birthDate;
-    int mensualSalary;
-    int balance;
+    double mensualSalary;
+    double balance;
     boolean canTakeCredit;
+    double credit;
 
-    public Account(long id, String firstName, String lastName, Date birthDate, int mensualSalary, int balance,
-                   boolean canTakeCredit){
+    public Account(long id, String firstName, String lastName, Date birthDate, double mensualSalary,
+                   double balance, boolean canTakeCredit, double credit) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -28,14 +29,54 @@ public class Account {
         this.mensualSalary = mensualSalary;
         this.balance = balance;
         this.canTakeCredit = canTakeCredit;
-
+        this.credit = credit;
     }
 
-    public int getBalance() {
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public double getMensualSalary() {
+        return mensualSalary;
+    }
+
+    public void setMensualSalary(double mensualSalary) {
+        this.mensualSalary = mensualSalary;
+    }
+
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
@@ -47,47 +88,12 @@ public class Account {
         this.canTakeCredit = canTakeCredit;
     }
 
-    public Account(long id) {
-        this.id = id;
+    public double getCredit() {
+        return credit;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public int getMensualSalary() {
-        return mensualSalary;
-    }
-
-    public void setMensualSalary(int mensualSalary) {
-        this.mensualSalary = mensualSalary;
+    public void setCredit(double credit) {
+        this.credit = credit;
     }
 }
+

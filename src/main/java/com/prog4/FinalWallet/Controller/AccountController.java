@@ -33,7 +33,7 @@ public class AccountController {
 
 
     @GetMapping("/account/balance/{id}")
-    public int getAccountBalance(@PathVariable Long id){
+    public double getAccountBalance(@PathVariable Long id){
         return this.accountService.getAccountBalance(id);
     }
 
@@ -69,6 +69,7 @@ public class AccountController {
         return accountService.updateAccountSalary(id, account);
     }
 
+    /* Update the balance of an account */
     @PutMapping("/account/balance/{id}")
     public Account updateBalance(@PathVariable Long id, @RequestBody Account account) {
         return accountService.updateBalance(id, account);

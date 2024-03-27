@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS account (
     birth_date DATE CHECK (birth_date <= CURRENT_DATE - INTERVAL '21 years') NOT NULL,
     mensual_salary DOUBLE PRECISION NOT NULL,
     balance DOUBLE PRECISION NOT NULL,
-    can_take_credit BOOL DEFAULT FALSE
+    can_take_credit BOOL DEFAULT FALSE,
+    credit DOUBLE PRECISION
 );
 
 CREATE TABLE IF NOT EXISTS withdrawal (

@@ -4,6 +4,7 @@ package com.prog4.FinalWallet.Service;
 import com.prog4.FinalWallet.Model.Account;
 import com.prog4.FinalWallet.Repository.AccountRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -53,7 +54,7 @@ public class AccountService {
 
 
 
-    public int getAccountBalance(long id){
+    public double getAccountBalance(long id){
         try {
             return this.accountRepository.getAccountBalance(id);
         } catch (SQLException e){
@@ -100,6 +101,39 @@ public class AccountService {
             account.setId(id);
             accountRepository.updateBalance(id , account);
             return account;
+
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+
+    public Account updateAccountCredit(double credit, Long id, Account account){
+        try {
+            account.setCredit(credit);
+            account.setId(id);
+            accountRepository.updateAccountCredit(credit, id);
+            return account;
+
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+
+    @Scheduled(cron = "0 0 0 * * ?")
+    public Account updateDailyCredit(double credit, Long id){
+        try {
+            for (Long i = 0L; i < 100000; i++) {
+                double creditWithoutInterest = this.accountRepository.getAccountCredit(i);
+                double creditWithInterest = creditWithoutInterest;
+
+                creditWithInterest = creditWithoutInterest + (creditWithoutInterest/100);
+                this.accountRepository.updateAccountCredit(creditWithInterest, i);
+            }
+            return null;
 
         } catch (SQLException e){
             System.out.println(e.getMessage());
