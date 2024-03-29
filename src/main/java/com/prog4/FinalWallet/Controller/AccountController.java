@@ -31,11 +31,24 @@ public class AccountController {
         return this.accountService.getAccountById(id);
     }
 
-
+    /* Get the total balance of an account by id */
     @GetMapping("/account/balance/{id}")
     public double getAccountBalance(@PathVariable Long id){
         return this.accountService.getAccountBalance(id);
     }
+
+    /* Get the credit of an account by id */
+    @GetMapping("/account/balance/{id}")
+    public double getAccountCredit(@PathVariable Long id){
+        return this.accountService.getAccountCredit(id);
+    }
+
+    /* Get the credit interest of an account by id */
+    @GetMapping("/account/balance/{id}")
+    public double getCreditInteretst(@PathVariable Long id){
+        return this.accountService.getCreditInterest(id);
+    }
+
 
 
 

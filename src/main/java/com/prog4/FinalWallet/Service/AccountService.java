@@ -53,10 +53,29 @@ public class AccountService {
     }
 
 
-
     public double getAccountBalance(long id){
         try {
             return this.accountRepository.getAccountBalance(id);
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
+
+    public double getAccountCredit(long id){
+        try {
+            return this.accountRepository.getAccountCredit(id);
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
+
+    public double getCreditInterest(long id){
+        try {
+            return this.accountRepository.getCreditInterest(id);
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }
@@ -124,15 +143,18 @@ public class AccountService {
 
 
     @Scheduled(cron = "0 0 0 * * ?")
-    public Account updateDailyCredit(double credit, Long id){
+    public Account updateDailyCredit(){
         try {
             for (Long i = 0L; i < 100000; i++) {
-                double creditWithoutInterest = this.accountRepository.getAccountCredit(i);
-                double creditWithInterest = creditWithoutInterest;
+                double creditInterest = this.accountRepository.getCreditInterest(i);
+                double accountCreditcredit = this.accountRepository.getAccountCredit(i);
 
-                creditWithInterest = creditWithoutInterest + (creditWithoutInterest/100);
-                this.accountRepository.updateAccountCredit(creditWithInterest, i);
+                creditInterest = creditInterest + (accountCreditcredit/100);
+
+                this.accountRepository.updateCreditInterest(creditInterest, i);
+
             }
+
             return null;
 
         } catch (SQLException e){

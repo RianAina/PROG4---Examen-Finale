@@ -15,10 +15,8 @@ import java.sql.*;
 @Repository
 public class AccountRepository {
     private Connection connection;
-    private final JdbcTemplate jdbcTemplate;
 
 
-    /* -- CREATE -- */
 
     public Account createNewInstance(ResultSet resultSet) throws SQLException{
         return new Account(
@@ -29,7 +27,8 @@ public class AccountRepository {
                 resultSet.getDouble("mensual_salary"),
                 resultSet.getDouble("balance"),
                 resultSet.getBoolean("can_take_credit"),
-                resultSet.getDouble("credit")
+                resultSet.getDouble("credit"),
+                resultSet.getDouble("credit_interest")
         );
     }
 
@@ -117,10 +116,22 @@ public class AccountRepository {
     }
 
 
+    public double getCreditInterest(long id) throws SQLException{
+        double creditInterest = 0;
+        String sql = "SELECT credit_interest FROM account WHERE id = ? ;";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setLong(1, id);
+
+        ResultSet resultSet = statement.executeQuery();
+        if(resultSet.next()){
+            creditInterest = resultSet.getDouble("credit_interest");
+        }
+        return creditInterest;
+    }
 
 
 
-    /* -- UPDATE -- */
+    /* -- CREATE -- */
 
     public void createAccount(Account account) throws SQLException {
         String sql = "INSERT INTO account (first_name, last_name, birth_date, mensual_salary, balance) " +
@@ -137,6 +148,9 @@ public class AccountRepository {
     }
 
 
+
+    /* -- UPDATE -- */
+
     public void setCreditStatus(Long id, Account account) throws SQLException{
         String sql = "UPDATE account SET can_take_credit = ? WHERE id = ?;";
         try (PreparedStatement statement = connection.prepareStatement(sql)){
@@ -145,8 +159,6 @@ public class AccountRepository {
             statement.executeUpdate();
         }
     }
-
-
 
 
     public void updateBalance(Long id, Account account) throws SQLException{
@@ -175,6 +187,17 @@ public class AccountRepository {
         String sql = "UPDATE account SET credit = ? WHERE id = ?;";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setDouble(1, credit);
+            statement.setLong(2, id);
+
+            statement.executeUpdate();
+        }
+    }
+
+
+    public void updateCreditInterest(double creditInterest, Long id) throws SQLException {
+        String sql = "UPDATE account SET credit_interest = ? WHERE id = ?;";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setDouble(1, creditInterest);
             statement.setLong(2, id);
 
             statement.executeUpdate();

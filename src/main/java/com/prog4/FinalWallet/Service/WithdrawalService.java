@@ -49,7 +49,7 @@ public class WithdrawalService {
 
         try {
             if (creditStatus){
-                if ((balance = balance + mensualSalary/3) >= withdrawalAmount && 0 != withdrawalAmount){
+                if ((balance + (mensualSalary/3)) >= withdrawalAmount && withdrawalAmount != 0){
                     withdrawalRepository.doWithdraw(id, withdrawalAmount);
                     balance = balance - withdrawalAmount;
 

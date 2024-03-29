@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS account (
     mensual_salary DOUBLE PRECISION NOT NULL,
     balance DOUBLE PRECISION NOT NULL,
     can_take_credit BOOL DEFAULT FALSE,
-    credit DOUBLE PRECISION
+    credit DOUBLE PRECISION,
+    credit_interest DOUBLE PRECISION
 );
 
 CREATE TABLE IF NOT EXISTS withdrawal (
@@ -22,3 +23,22 @@ CREATE TABLE IF NOT EXISTS withdrawal (
     withdrawal_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_account) REFERENCES account(id)
 );
+
+    CREATE TABLE IF NOT EXISTS incoming_transfer (
+        id SERIAL PRIMARY KEY,
+        id_account INT NOT NULL,
+        amount DOUBLE PRECISION NOT NULL,
+        reason VARCHAR(500) DEFAULT 'Autre' NOT NULL
+        CHECK (reason IN
+        ('Nouriture et boisson',
+        'Achats et boutique en ligne',
+        'Logement',
+        'Transports',
+        'Vehicule',
+        'Loisir',
+        'Revenu',
+        'Autre')),
+        effective_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (id_account) REFERENCES account(id)
+    );

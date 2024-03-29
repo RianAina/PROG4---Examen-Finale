@@ -19,9 +19,10 @@ public class Account {
     double balance;
     boolean canTakeCredit;
     double credit;
+    double creditInterst;
 
     public Account(long id, String firstName, String lastName, Date birthDate, double mensualSalary,
-                   double balance, boolean canTakeCredit, double credit) {
+                   double balance, boolean canTakeCredit, double credit, double creditInterst) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -30,6 +31,7 @@ public class Account {
         this.balance = balance;
         this.canTakeCredit = canTakeCredit;
         this.credit = credit;
+        this.creditInterst = creditInterst;
     }
 
     public long getId() {
@@ -94,6 +96,14 @@ public class Account {
 
     public void setCredit(double credit) {
         this.credit = credit;
+    }
+
+    public double getCreditInterst() {
+        return creditInterst;
+    }
+
+    public void setCreditInterst(double creditInterst) {
+        this.creditInterst = creditInterst;
     }
 }
 
