@@ -42,3 +42,4 @@ CREATE TABLE IF NOT EXISTS withdrawal (
         registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (id_account) REFERENCES account(id)
     );
+

@@ -28,14 +28,12 @@ public class IncomingTransferRepository {
     /* CREATE */
 
     public void receiveTransfer(IncomingTransfer incomingTransfer) throws SQLException {
-        String sql = "INSERT INTO incoming_transfert (id_account, amount, reason, effective_date, registration_date) " +
-                "VALUES (?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO incoming_transfer (id_account, amount, reason) " +
+                "VALUES (?, ?, ?);";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setLong(1, incomingTransfer.getIdAccount());
             statement.setDouble(2, incomingTransfer.getAmount());
             statement.setString(3, incomingTransfer.getReason());
-            statement.setDate(4, incomingTransfer.getEffective_date());
-            statement.setDate(5, incomingTransfer.getRegistration_date());
 
             statement.executeUpdate();
         }
@@ -49,7 +47,7 @@ public class IncomingTransferRepository {
         double amount = 0;
         String sql = "SELECT amount FROM incoming_transfer WHERE id = ? ;";
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setLong(1, id);
+            statement.setLong(1, id);
 
         ResultSet resultSet = statement.executeQuery();
         if(resultSet.next()){

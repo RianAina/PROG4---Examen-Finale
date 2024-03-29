@@ -193,6 +193,16 @@ public class AccountRepository {
         }
     }
 
+    public void updateBalanceAmount(double balance, Long id) throws SQLException {
+        String sql = "UPDATE account SET balance = ? WHERE id = ?;";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setDouble(1, balance);
+            statement.setLong(2, id);
+
+            statement.executeUpdate();
+        }
+    }
+
 
     public void updateCreditInterest(double creditInterest, Long id) throws SQLException {
         String sql = "UPDATE account SET credit_interest = ? WHERE id = ?;";

@@ -38,14 +38,14 @@ public class AccountController {
     }
 
     /* Get the credit of an account by id */
-    @GetMapping("/account/balance/{id}")
+    @GetMapping("/account/credit/{id}")
     public double getAccountCredit(@PathVariable Long id){
         return this.accountService.getAccountCredit(id);
     }
 
     /* Get the credit interest of an account by id */
-    @GetMapping("/account/balance/{id}")
-    public double getCreditInteretst(@PathVariable Long id){
+    @GetMapping("/account/interest/{id}")
+    public double getCreditInterest(@PathVariable Long id){
         return this.accountService.getCreditInterest(id);
     }
 

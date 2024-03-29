@@ -1,7 +1,16 @@
 package com.prog4.FinalWallet.Model;
+
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 
+@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
 public class IncomingTransfer {
     long id;
     long idAccount;
