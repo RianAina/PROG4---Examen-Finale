@@ -47,6 +47,8 @@ CREATE TABLE IF NOT EXISTS outflow_transfer(
     id SERIAL PRIMARY KEY,
     id_account INT NOT NULL,
     id_receiver INT NOT NULL,
+    is_same_bank BOOL DEFAULT TRUE,
+    bank_name VARCHAR(500) DEFAULT 'Bank X',
     transfer_amount DOUBLE PRECISION NOT NULL,
     category VARCHAR(500) DEFAULT 'Autre' NOT NULL
             CHECK (category IN
@@ -60,7 +62,7 @@ CREATE TABLE IF NOT EXISTS outflow_transfer(
             'Autre')),
     effective_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    transation_reference CHAR(50),
+    transation_reference CHAR(50) NOT NULL,
     FOREIGN KEY (id_account) REFERENCES account(id)
 );
 
