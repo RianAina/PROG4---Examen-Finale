@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS withdrawal (
     FOREIGN KEY (id_account) REFERENCES account(id)
 );
 
-    CREATE TABLE IF NOT EXISTS incoming_transfer (
+CREATE TABLE IF NOT EXISTS incoming_transfer (
         id SERIAL PRIMARY KEY,
         id_account INT NOT NULL,
         amount DOUBLE PRECISION NOT NULL,
@@ -41,5 +41,26 @@ CREATE TABLE IF NOT EXISTS withdrawal (
         effective_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (id_account) REFERENCES account(id)
-    );
+);
+
+CREATE TABLE IF NOT EXISTS outflow_transfer(
+    id SERIAL PRIMARY KEY,
+    id_account INT NOT NULL,
+    id_receiver INT NOT NULL,
+    transfer_amount DOUBLE PRECISION NOT NULL,
+    category VARCHAR(500) DEFAULT 'Autre' NOT NULL
+            CHECK (category IN
+            ('Nouriture et boisson',
+            'Achats et boutique en ligne',
+            'Logement',
+            'Transports',
+            'Vehicule',
+            'Loisir',
+            'Revenu',
+            'Autre')),
+    effective_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    transation_reference CHAR(50),
+    FOREIGN KEY (id_account) REFERENCES account(id)
+);
 
