@@ -1,8 +1,15 @@
 package com.prog4.FinalWallet.Model;
 
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 
+@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
 public class OutflowTransfer {
 
     long id;
@@ -15,10 +22,11 @@ public class OutflowTransfer {
     Timestamp effectiveDate;
     Timestamp registrationDate;
     String transactionReference;
+    boolean isCanceled;
 
     public OutflowTransfer(long id, long idAccount, long idReceiver, boolean isSameBank, String bankName,
                            double transferAmount, String category, Timestamp effectiveDate,
-                           Timestamp registrationDate, String transactionReference) {
+                           Timestamp registrationDate, String transactionReference, boolean isCanceled) {
         this.id = id;
         this.idAccount = idAccount;
         this.idReceiver = idReceiver;
@@ -29,6 +37,7 @@ public class OutflowTransfer {
         this.effectiveDate = effectiveDate;
         this.registrationDate = registrationDate;
         this.transactionReference = transactionReference;
+        this.isCanceled = isCanceled;
     }
 
     public long getId() {
@@ -109,5 +118,13 @@ public class OutflowTransfer {
 
     public void setTransactionReference(String transactionReference) {
         this.transactionReference = transactionReference;
+    }
+
+    public boolean isCanceled() {
+        return isCanceled;
+    }
+
+    public void setCanceled(boolean canceled) {
+        isCanceled = canceled;
     }
 }

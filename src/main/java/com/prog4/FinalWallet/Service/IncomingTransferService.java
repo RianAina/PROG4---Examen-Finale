@@ -23,12 +23,13 @@ public class IncomingTransferService {
     public IncomingTransfer receiveTransfer(long id, IncomingTransfer incomingTransfer){
         try {
             incomingTransferRepository.receiveTransfer(incomingTransfer);
+
             double amountTransfer = incomingTransferRepository.getTransferAmount(id);
             double accountBalance = accountRepository.getAccountBalance(id);
 
-            accountBalance = accountBalance + amountTransfer;
+            double NewaccountBalance = accountBalance + amountTransfer;
 
-            this.accountRepository.updateBalanceAmount(accountBalance, id);
+            this.accountRepository.updateBalanceAmount(NewaccountBalance, id);
 
             return incomingTransfer;
         } catch (SQLException e){

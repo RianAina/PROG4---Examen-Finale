@@ -1,6 +1,5 @@
 package com.prog4.FinalWallet.Repository;
 
-import com.prog4.FinalWallet.Model.Account;
 import com.prog4.FinalWallet.Model.IncomingTransfer;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;

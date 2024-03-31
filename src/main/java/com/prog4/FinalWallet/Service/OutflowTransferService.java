@@ -13,6 +13,8 @@ package com.prog4.FinalWallet.Service;
         import java.security.SecureRandom;
 
         import java.sql.SQLException;
+        import java.sql.Timestamp;
+        import java.util.Date;
 
 @AllArgsConstructor
 @Service
@@ -42,19 +44,27 @@ public class OutflowTransferService {
 
 
     @Transactional
-    public String doTransfer(long idAccount, long idReceiver, OutflowTransfer outflowTransfer){
+    @Scheduled(cron = "0 0 0 * * ?")
+    public String doTransfer(OutflowTransfer outflowTransfer){
         try {
             String referenceUnique = generateUniqueReference();
 
-            this.outflowTransferRepository.doTransfer(idAccount, idReceiver, outflowTransfer);
+            this.outflowTransferRepository.doTransfer(outflowTransfer);
             this.outflowTransferRepository.setTransactionReference(referenceUnique);
 
+            long idAccount = outflowTransferRepository.getIdAccount(referenceUnique);
+            long idReceiver = outflowTransferRepository.getIdReceiver(referenceUnique);
             double senderBalance = accountRepository.getAccountBalance(idAccount);
             double receiverBalance = accountRepository.getAccountBalance(idReceiver);
             double transferAmount = outflowTransferRepository.getTransfertAmount(referenceUnique);
+            Timestamp effectiveDate = outflowTransferRepository.getEffectiveDateTransfer(referenceUnique);
+
+            Date currentDate = new Date();
+            Timestamp dateNow = new Timestamp(currentDate.getTime());
 
 
-            if (outflowTransferRepository.isSameBankStatus(referenceUnique)){
+
+            if (dateNow.before(effectiveDate)) {
 
                 if (senderBalance >= transferAmount && transferAmount != 0) {
                     senderBalance = senderBalance - transferAmount;
@@ -63,7 +73,7 @@ public class OutflowTransferService {
                     accountRepository.updateBalanceAmount(senderBalance, idAccount);
                     accountRepository.updateBalanceAmount(receiverBalance, idReceiver);
 
-                    return "Transfert of " + transferAmount + " to id : " + idReceiver + "done !";
+                    return "Transfert of " + transferAmount + " done !";
 
                 } else if (senderBalance < transferAmount && transferAmount != 0) {
 
@@ -74,14 +84,12 @@ public class OutflowTransferService {
                     return "Invalid transfer amount !";
 
                 }
+
             } else {
-
-                senderBalance = senderBalance - transferAmount;
-
-                accountRepository.updateBalanceAmount(senderBalance, idAccount);
-
-                return "Transfert of " + transferAmount + " into an external bank done !";
+                return "Transaciton saved !";
             }
+
+
 
         } catch (SQLException e){
             System.out.println(e.getMessage());

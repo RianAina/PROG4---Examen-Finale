@@ -62,7 +62,9 @@ CREATE TABLE IF NOT EXISTS outflow_transfer(
             'Autre')),
     effective_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    transation_reference CHAR(14) DEFAULT '00000000000000',
-    FOREIGN KEY (id_account) REFERENCES account(id)
+    transaction_reference CHAR(14) DEFAULT '00000000000000',
+    is_canceled BOOL DEFAULT FALSE,
+    FOREIGN KEY (id_account) REFERENCES account(id),
+    FOREIGN KEY (id_receiver) REFERENCES account(id)
 );
 

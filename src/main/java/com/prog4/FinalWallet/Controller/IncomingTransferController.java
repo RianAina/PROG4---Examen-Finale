@@ -12,7 +12,7 @@ public class IncomingTransferController {
 
     /* -- Post request -- */
 
-    /* Create a new account */
+    /* Receive transfert */
     @PostMapping("/incoming/{id}")
     public IncomingTransfer receiveTransfer (@PathVariable long id, @RequestBody IncomingTransfer incomingTransfer) {
         return incomingTransferService.receiveTransfer(id, incomingTransfer);

@@ -31,10 +31,9 @@ public class OutflowTransferController {
     /* -- Post request -- */
 
     @PostMapping("/outflow/{idAccount}/{idReceiver}")
-    public String doTransfer (@RequestBody long idAccount,
-                                       @RequestBody long idReceiver, @RequestBody OutflowTransfer outflowTransfer) {
+    public String doTransfer (@RequestBody OutflowTransfer outflowTransfer) {
 
-        return outflowTransferService.doTransfer(idAccount, idReceiver, outflowTransfer);
+        return outflowTransferService.doTransfer(outflowTransfer);
     }
 
 
