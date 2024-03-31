@@ -185,7 +185,7 @@ public class OutflowTransferRepository {
     }
 
 
-    public void setCanceleStatus(boolean status, String reference) throws SQLException{
+    public void setCanceleStatus(boolean status, String reference, OutflowTransfer outflowTransfer) throws SQLException{
         String sql = "UPDATE outflow_transfer SET is_canceled = ? " +
                 "WHERER transaction_reference = ? ;";
         try (PreparedStatement statement = connection.prepareStatement(sql)){

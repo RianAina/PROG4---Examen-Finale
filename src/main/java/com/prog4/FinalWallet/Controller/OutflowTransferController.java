@@ -1,13 +1,9 @@
 package com.prog4.FinalWallet.Controller;
 
-        import com.prog4.FinalWallet.Model.Account;
         import com.prog4.FinalWallet.Model.OutflowTransfer;
-        import com.prog4.FinalWallet.Service.AccountService;
         import com.prog4.FinalWallet.Service.OutflowTransferService;
         import lombok.AllArgsConstructor;
         import org.springframework.web.bind.annotation.*;
-
-        import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -30,7 +26,7 @@ public class OutflowTransferController {
 
     /* -- Post request -- */
 
-    @PostMapping("/outflow/{idAccount}/{idReceiver}")
+    @PostMapping("/outflow")
     public String doTransfer (@RequestBody OutflowTransfer outflowTransfer) {
 
         return outflowTransferService.doTransfer(outflowTransfer);
@@ -43,7 +39,11 @@ public class OutflowTransferController {
 
     /* -- Put request -- */
 
+    @PutMapping("/outflow/{status}/{reference}")
+    public OutflowTransfer setCanceleStatus (@PathVariable boolean status, @PathVariable String reference, @RequestBody OutflowTransfer outflowTransfer) {
 
+        return outflowTransferService.setCanceleStatus(status, reference, outflowTransfer);
+    }
 
 
 

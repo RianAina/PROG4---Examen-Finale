@@ -64,33 +64,49 @@ public class OutflowTransferService {
 
 
 
-            if (dateNow.before(effectiveDate)) {
+            if (dateNow.after(effectiveDate)) {
+                if (outflowTransferRepository.getCanceledStatus(referenceUnique) == false){
+                    if (senderBalance >= transferAmount && transferAmount != 0) {
+                        senderBalance = senderBalance - transferAmount;
+                        receiverBalance = receiverBalance + transferAmount;
 
-                if (senderBalance >= transferAmount && transferAmount != 0) {
-                    senderBalance = senderBalance - transferAmount;
-                    receiverBalance = receiverBalance + transferAmount;
+                        accountRepository.updateBalanceAmount(senderBalance, idAccount);
+                        accountRepository.updateBalanceAmount(receiverBalance, idReceiver);
 
-                    accountRepository.updateBalanceAmount(senderBalance, idAccount);
-                    accountRepository.updateBalanceAmount(receiverBalance, idReceiver);
+                        return "Transfert of " + transferAmount + " done !";
 
-                    return "Transfert of " + transferAmount + " done !";
+                    } else if (senderBalance < transferAmount && transferAmount != 0) {
 
-                } else if (senderBalance < transferAmount && transferAmount != 0) {
+                        return "Insufficient balance !" ;
 
-                    return "Insufficient balance !" ;
+                    } else {
+
+                        return "Invalid transfer amount !";
+
+                    }
 
                 } else {
-
-                    return "Invalid transfer amount !";
-
+                    return "Transaciton saved !";
                 }
-
             } else {
-                return "Transaciton saved !";
+                return "Transaction canceled";
             }
 
 
 
+
+
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+
+    public OutflowTransfer setCanceleStatus(boolean status, String reference, OutflowTransfer outflowTransfer){
+        try {
+            outflowTransferRepository.setCanceleStatus(status, reference, outflowTransfer);
+            return outflowTransfer;
         } catch (SQLException e){
             System.out.println(e.getMessage());
             return null;
