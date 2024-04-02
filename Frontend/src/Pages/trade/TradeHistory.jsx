@@ -1,7 +1,7 @@
 import { Sheet, Table } from "@mui/joy";
 import React, { useState } from "react";
 
-const TradeList = () => {
+const TradeHistory = () => {
 	const [TradeList, setTradeList] = useState({
 		MotifsVirement: "",
 		Montant: 0,
@@ -47,4 +47,4 @@ const TradeList = () => {
 	);
 };
 
-export default TradeList;
+export default TradeHistory;

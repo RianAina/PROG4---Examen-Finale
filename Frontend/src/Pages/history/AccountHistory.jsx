@@ -2,7 +2,7 @@ import { Sheet, Table } from "@mui/joy";
 import React, { useState } from "react";
 
 const AccountHistory = () => {
-	const [WithdrawHistory, setWithdrawHitsory] = useState({
+	const [AllHistory, setAllHistory] = useState({
 		reference: 0,
 		Motifs: 0,
 		creditMGA: 0,
@@ -37,18 +37,20 @@ const AccountHistory = () => {
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>
-								{new Date().toLocaleString("fr-FR", {
-									dateStyle: "long",
-								})}
-							</td>
-							<td>{WithdrawHistory.reference}</td>
-							<td>{WithdrawHistory.Motifs}</td>
-							<td>{WithdrawHistory.creditMGA}</td>
-							<td>{WithdrawHistory.debitMGA}</td>
-							<td>{WithdrawHistory.solde}</td>
-						</tr>
+						{AllHistory.map((History) => (
+							<tr>
+								<td>
+									{new Date().toLocaleString("fr-FR", {
+										dateStyle: "long",
+									})}
+								</td>
+								<td>{History.reference}</td>
+								<td>{History.Motifs}</td>
+								<td>{History.creditMGA}</td>
+								<td>{History.debitMGA}</td>
+								<td>{History.solde}</td>
+							</tr>
+						))}
 					</tbody>
 				</Table>
 			</Sheet>
