@@ -52,19 +52,14 @@ public class BankStatmentRepository {
                 "LEFT JOIN \n" +
                 "    outflow_transfer ot ON a.id = ot.id_account\n" +
                 "WHERE \n" +
-                "    COALESCE(w.withdrawal_date, it.effective_date, ot.effective_date) BETWEEN ? AND ?\n" +
+                "    COALESCE(w.withdrawal_date, it.effective_date, ot.effective_date) BETWEEN '1999-01-01' AND '2030-01-01'\n" +
                 "ORDER BY \n" +
                 "    transaction_date;\n";
         List<BankStatment> list = new ArrayList<>();
         PreparedStatement statement = this.connection.prepareStatement(sql);
-        statement.setString(1, a);
-        statement.setString(2, b);
-
-        try (ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                BankStatment bankStatment = createNewInstance(resultSet);
-                list.add(bankStatment);
-            }
+        ResultSet resultSet = this.connection.createStatement().executeQuery(sql);
+        while(resultSet.next()){
+            list.add(this.createNewInstance(resultSet));
         }
         return list;
     }

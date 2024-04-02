@@ -13,11 +13,10 @@ package com.prog4.FinalWallet.Controller;
 @AllArgsConstructor
 public class BankStatmentController {
     private BankStatmentService bankStatmentService;
-
     /* -- Get request -- */
 
     /* Get the list of all accounts */
-    @GetMapping("/account")
+        @GetMapping("/transaction/{a}/{b}")
     public List<BankStatment> getTransaction(@PathVariable String a,@PathVariable String b) {
         return this.bankStatmentService.getTransaction(a,b);
     }
