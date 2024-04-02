@@ -81,3 +81,5 @@ BEGIN
     WHERE it.effective_date >= start_date AND it.effective_date <= end_date;
 END;
 $$ LANGUAGE plpgsql;
+
+
