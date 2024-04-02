@@ -20,7 +20,7 @@ public class FunctionSQLController {
         return this.functionSQLService.getAllAmount();
     }
 
-    @GetMapping("/account/2")
+    @GetMapping("/function/2")
     public double getSumAmount(){
         return this.functionSQLService.getSumAmount();
     }

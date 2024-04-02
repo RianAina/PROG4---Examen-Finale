@@ -65,6 +65,9 @@ CREATE TABLE IF NOT EXISTS outflow_transfer(
     FOREIGN KEY (id_receiver) REFERENCES account(id)
 );
 
+-- Function SQL --
+
+
 CREATE OR REPLACE FUNCTION all_amount(start_date TIMESTAMP, end_date TIMESTAMP)
 RETURNS TABLE (
     transfer_id INT,
@@ -81,6 +84,7 @@ BEGIN
     WHERE it.effective_date >= start_date AND it.effective_date <= end_date;
 END;
 $$ LANGUAGE plpgsql;
+
 
 CREATE OR REPLACE FUNCTION visualize_expenses()
 RETURNS TABLE(
