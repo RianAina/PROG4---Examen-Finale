@@ -65,3 +65,19 @@ CREATE TABLE IF NOT EXISTS outflow_transfer(
     FOREIGN KEY (id_receiver) REFERENCES account(id)
 );
 
+CREATE OR REPLACE FUNCTION all_amount(start_date TIMESTAMP, end_date TIMESTAMP)
+RETURNS TABLE (
+    transfer_id INT,
+    id_account INT,
+    amount DOUBLE PRECISION,
+    reason VARCHAR(500),
+    effective_date TIMESTAMP,
+    registration_date TIMESTAMP
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT it.id AS transfer_id, it.id_account, it.amount, it.reason, it.effective_date, it.registration_date
+    FROM incoming_transfer it
+    WHERE it.effective_date >= start_date AND it.effective_date <= end_date;
+END;
+$$ LANGUAGE plpgsql;
