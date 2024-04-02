@@ -12,4 +12,4 @@ use npm install to install all necessary modules
 
 
 
-then use "npm runDev" to launch the frontEnd
+then use "npm run dev" to launch the frontEnd
