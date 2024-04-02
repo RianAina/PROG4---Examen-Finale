@@ -1,0 +1,4 @@
+.loginImage {
+    background-image: url(../../public/images/login.webp);
+    background-size: cover;
+}
