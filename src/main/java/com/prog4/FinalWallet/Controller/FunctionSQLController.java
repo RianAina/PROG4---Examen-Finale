@@ -19,6 +19,11 @@ public class FunctionSQLController {
     public List<FunctionSQL> getAllAmount() {
         return this.functionSQLService.getAllAmount();
     }
+
+    @GetMapping("/account/2")
+    public double getSumAmount(){
+        return this.functionSQLService.getSumAmount();
+    }
 }
 
 

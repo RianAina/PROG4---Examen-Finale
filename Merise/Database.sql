@@ -82,4 +82,14 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION visualize_expenses()
+RETURNS TABLE(
+    total_expense DOUBLE PRECISION
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT SUM(transfer_amount) AS total_expense
+    FROM outflow_transfer;
+END;
+$$ LANGUAGE plpgsql;
 

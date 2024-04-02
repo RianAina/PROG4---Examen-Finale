@@ -10,13 +10,17 @@ import java.sql.SQLException;
 @Component
 public class GetConnection {
 
+
+
     @Bean
     public Connection test() throws SQLException{
         return DriverManager.getConnection (
                 URL,
                 USERNAME,
                 PASSWORD
+
         );
+
     }
 
 
@@ -261,10 +265,7 @@ public class GetConnection {
 
 
 
-
-
-
-    String URL = "jdbc:postgresql://localhost:5432/bank_database";
-    String USERNAME = "postgres";
-    String PASSWORD = "password";
+    public String URL = "jdbc:postgresql://localhost:5432/bank_database";
+    public String USERNAME = "postgres";
+    public String PASSWORD = "password";
 }

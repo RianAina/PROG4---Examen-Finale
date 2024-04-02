@@ -38,6 +38,16 @@ public class FunctionSQLRepository {
         return list;
     }
 
+    public double getSumAmount() throws SQLException{
+        double amount = 0;
+        String sql = "SELECT * FROM visualize_expenses();";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery();
+        if(resultSet.next()){
+            amount = resultSet.getDouble("balance");
+        }
+        return amount;
+    }
 
 
 

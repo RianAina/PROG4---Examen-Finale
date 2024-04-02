@@ -17,6 +17,7 @@ package com.prog4.FinalWallet.Service;
 @Service
 public class FunctionSQLService {
     private FunctionSQLRepository functionSQLRepository;
+
     public List<FunctionSQL> getAllAmount(){
         try {
             return this.functionSQLRepository.getAllAmount() ;
@@ -24,6 +25,16 @@ public class FunctionSQLService {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+
+    public double getSumAmount(){
+        try {
+            return this.functionSQLRepository.getSumAmount();
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return 0;
     }
 
 
